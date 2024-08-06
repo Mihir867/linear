@@ -1,12 +1,17 @@
 "use client";
-import { useState, useEffect, type FC } from 'react'
-import Logo from '@/assets/logo.svg'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { Menu } from 'lucide-react'
-import styles from './styles.module.css'
+import { useState, type FC } from 'react';
+import Logo from '@/assets/logo.svg';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { Menu, X } from 'lucide-react';
+import styles from './styles.module.css';
 
 const Header: FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
     <div className={styles.header}>
@@ -22,10 +27,7 @@ const Header: FC = () => {
                 </Link>
               </li>
 
-              <li 
-                className={cn(styles.hide__mobile, styles.header__trigger)}
-                
-              >
+              <li className={cn(styles.hide__mobile, styles.header__trigger)}>
                 <Link className={styles.header__link} href='#'>
                   Features
                 </Link>
@@ -99,16 +101,68 @@ const Header: FC = () => {
                   styles.header__button,
                   styles.header__menu,
                 )}>
-                <button>
-                  <Menu />
+                <button onClick={toggleMenu}>
+                  {menuOpen ? <X /> : <Menu />}
                 </button>
+              </li>
+            </ul>
+          </div>
+          <div
+            className={cn(styles.mobileMenu, {
+              [styles.mobileMenuOpen]: menuOpen,
+            })}>
+            <ul className={styles.mobileMenu__list}>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Features
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Method
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Customers
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Changelog
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Pricing
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Company
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={styles.mobileMenu__link} href='#'>
+                  Contact
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={cn(styles.mobileMenu__link, styles.button__login)} href='#'>
+                  Log in
+                </Link>
+              </li>
+              <li className={styles.mobileMenu__item}>
+                <Link className={cn(styles.mobileMenu__link, styles.button__signup)} href='#'>
+                  Sign up
+                </Link>
               </li>
             </ul>
           </div>
         </nav>
       </header>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
